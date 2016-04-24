@@ -43,7 +43,7 @@ namespace SBS;
  *
  * <pre><code>&lt;?php
  *
- * class MyReader extends \SBS\Reader {
+ * class CustomReader extends \SBS\Reader {
  *
  *   public function onConnect($hostname, $port, $timeout) {
  *     printf('Reader connected to %s:%d', $hostname, $port);
@@ -68,7 +68,7 @@ namespace SBS;
  *
  * }
  *
- * $reader = new MyReader('localhost', 30003);
+ * $reader = new CustomReader('localhost', 30003);
  * if ($reader->connect()) {
  *   $reader->run();
  * }
