@@ -1,0 +1,19 @@
+{
+    "name": "lnx85/php-sbs-reader",
+    "description": "A PHP library that implements SBS-1 BaseStation protocol",
+    "keywords": ["sbs-1", "base station", "1090mhz"],
+    "homepage": "https://github.com/lnx85/php-sbs-reader",
+    "type": "library",
+    "license": "GPL",
+    "authors": [{
+        "name": "Lorenzo Monaco",
+        "email": "lnx85@lnxlabs.it",
+        "homepage": "http://www.lnxlabs.it"
+    }],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": {"SBS": "src/"}
+    }
+}
