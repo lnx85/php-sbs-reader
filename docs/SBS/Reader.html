@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>SBS\Reader | PHP SBS Reader - Documentation</title>
+
+            <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sami.css">
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/typeahead.min.js"></script>
+        <script src="../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:SBS_Reader" data-root-path="../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">PHP SBS Reader - Documentation</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../classes.html">Classes</a></li>
+                                            <li><a href="../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../interfaces.html">Interfaces</a></li>
+                    <li><a href="../traits.html">Traits</a></li>
+                    <li><a href="../doc-index.html">Index</a></li>
+                    <li><a href="../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                                                            <li><a href="../SBS.html">SBS</a></li>
+    
+                <li>Reader</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>Reader</h1>
+    </div>
+
+    <p>    class
+    <strong>Reader</strong>
+</p>
+
+            <div class="description">
+            <p>Reader class is an implementation of SBS-1 Base Station protocol. It can
+connect to a remote data provider and it can read data in SBS1 (BaseStation)
+format.</p>            <p>You have to extend the Reader class and implement your own event methods:</p>
+
+<ul>
+  <li>SBS\Reader::onConnect</li>
+  <li>SBS\Reader::onDataReceive</li>
+  <li>SBS\Reader::onMessage</li>
+  <li>SBS\Reader::onError</li>
+</ul>
+
+<pre><code>&lt;?php
+
+class MyReader extends \SBS\Reader {
+
+  public function onConnect($hostname, $port, $timeout) {
+    printf('Reader connected to %s:%d', $hostname, $port);
+    // your custom code here
+  }
+
+  public function onDataReceive($data) {
+    printf('Data received: array(%d)', count($data));
+    // your custom code here
+    return true;
+  }
+
+  public function onMessage($message, $type, $transmission) {
+    printf('New %s message received', $type);
+    // your custom code here
+  }
+
+  public function onError($errno, $error) {
+    printf('Error %d: %s', $errno, $error);
+    // your custom code here
+  }
+
+}
+
+$reader = new MyReader('localhost', 30003);
+if ($reader->connect()) {
+  $reader->run();
+}
+</code></pre>
+</p>        </div>
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>(
+    string $hostname = &#039;localhost&#039;, 
+    int $port = 30003, 
+    int $timeout = 30)
+                                            <p>Create a new SBS\Reader.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_connect">connect</a>()
+                                            <p>Connect to source (dump1090).</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_run">run</a>()
+                                            <p>Main reader loop.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_onConnect">onConnect</a>(
+    string $hostname, 
+    int $port, 
+    int $timeout)
+                                            <p>Event method called everytime the Reader connects to the remote source. You can check hostname,
+port and timeout settings used for the connection.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_onDataReceive">onDataReceive</a>(
+    array $data)
+                                            <p>Event method called everytime the Reader receive some data. An array with the received data is
+passed to the method and you can test what values where received.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_onMessage">onMessage</a>(
+    <a href="../SBS/Message.html"><abbr title="SBS\Message">Message</abbr></a> $message, 
+    string $type, 
+    int $transmission)
+                                            <p>Event method called everytime the Reader processed a Message. You get the entire \SBS\Message
+object, the message type and the transmission type (only on MSG messages).</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_onError">onError</a>(
+    int $errno, 
+    string $error)
+                                            <p>Event method called everytime an error occured. You get the error number and the error message.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at line         line 142</div>
+        <code>                    
+    void
+    <strong>__construct</strong>(
+    string $hostname = &#039;localhost&#039;, 
+    int $port = 30003, 
+    int $timeout = 30)</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>Create a new SBS\Reader.</p>                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+    string</td>
+                <td>$hostname</td>
+                <td>source hostname (default value: 'localhost')</td>
+            </tr>
+                    <tr>
+                <td>
+    int</td>
+                <td>$port</td>
+                <td>source port (default value: 30003)</td>
+            </tr>
+                    <tr>
+                <td>
+    int</td>
+                <td>$timeout</td>
+                <td>connection timeout (seconds, default value: 30)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_connect">
+        <div class="location">at line         line 157</div>
+        <code>final                    
+    mixed
+    <strong>connect</strong>()</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>Connect to source (dump1090).</p>                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    mixed</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_run">
+        <div class="location">at line         line 173</div>
+        <code>final                    
+    void
+    <strong>run</strong>()</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>Main reader loop.</p>                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_onConnect">
+        <div class="location">at line         line 203</div>
+        <code>                    
+    void
+    <strong>onConnect</strong>(
+    string $hostname, 
+    int $port, 
+    int $timeout)</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>Event method called everytime the Reader connects to the remote source. You can check hostname,
+port and timeout settings used for the connection.</p>                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+    string</td>
+                <td>$hostname</td>
+                <td>connection hostname</td>
+            </tr>
+                    <tr>
+                <td>
+    int</td>
+                <td>$port</td>
+                <td>connection port</td>
+            </tr>
+                    <tr>
+                <td>
+    int</td>
+                <td>$timeout</td>
+                <td>connection timeout</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_onDataReceive">
+        <div class="location">at line         line 216</div>
+        <code>                    
+    bool
+    <strong>onDataReceive</strong>(
+    array $data)</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>Event method called everytime the Reader receive some data. An array with the received data is
+passed to the method and you can test what values where received.</p>                    <p>If the method return false, the received data is not processed by the reader.</p>            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+    array</td>
+                <td>$data</td>
+                <td>received data</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_onMessage">
+        <div class="location">at line         line 230</div>
+        <code>                    
+    void
+    <strong>onMessage</strong>(
+    <a href="../SBS/Message.html"><abbr title="SBS\Message">Message</abbr></a> $message, 
+    string $type, 
+    int $transmission)</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>Event method called everytime the Reader processed a Message. You get the entire \SBS\Message
+object, the message type and the transmission type (only on MSG messages).</p>                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+    <a href="../SBS/Message.html"><abbr title="SBS\Message">Message</abbr></a></td>
+                <td>$message</td>
+                <td>message received</td>
+            </tr>
+                    <tr>
+                <td>
+    string</td>
+                <td>$type</td>
+                <td>message type (AIR, CLK, ID, MSG, SEL, STA)</td>
+            </tr>
+                    <tr>
+                <td>
+    int</td>
+                <td>$transmission</td>
+                <td>transmission type (from 1 to 8 on MSG type, false otherwise)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_onError">
+        <div class="location">at line         line 241</div>
+        <code>                    
+    void
+    <strong>onError</strong>(
+    int $errno, 
+    string $error)</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>Event method called everytime an error occured. You get the error number and the error message.</p>                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+    int</td>
+                <td>$errno</td>
+                <td>error number</td>
+            </tr>
+                    <tr>
+                <td>
+    string</td>
+                <td>$error</td>
+                <td>error message</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>
